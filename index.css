@@ -1,0 +1,27 @@
+body{
+    background-image: url("stars.gif");
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+
+}
+ul{
+    list-style: none;
+
+}
+li{
+    padding: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+#nav{
+    color: white;
+    list-style: none;
+}
+#content{
+    color: white;
+}
