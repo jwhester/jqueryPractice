@@ -9,11 +9,17 @@ $(document).ready(function () {
 
 
 $("#start").click(function(){
+    $("#nav").html(
+        "<div id='heroBackground'>" +
+        "<img id='hero' src='assets/hero.png' alt=''>" +
+        "</div>" +
+        "<p></p>"
+    );
     $("#content").html(
         "<h1>Chapter 1</h1>" +
         "<p class='text' style='display: none'>We find ourselves in a hidden dungeon on an unknown planet in an unknown</p>" +
         "<p class='text' style='display: none'> time and space. </p>" +
-        "<button class='next'></button>"
+        "<button class='next'>Next</button>"
     );
     $('.text').show("slow");
     $('.next').click(function (){

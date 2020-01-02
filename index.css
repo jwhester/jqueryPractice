@@ -1,8 +1,8 @@
+*{
+    font-family: 'Press Start 2P', cursive;
+}
 body{
-    background-image: url("stars.gif");
     background-color: black;
-    background-repeat: no-repeat;
-    background-size: cover;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -31,16 +31,32 @@ body{
 
 
 #nav{
+    text-align: center;
+    background-image: url("stars.gif");
     background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
     border-color: black;
     box-shadow: white 1px 1px 1px 1px;
-    height: 150px;
-    width: 150px;
+    height: 500px;
+    width: 30%;
 }
 #content{
     color: white;
+    height: 500px;
+    width: 50%;
+    border: 2px solid red;
 }
-
+#heroBackground{
+    display: inline-block;
+    text-align: center;
+    background-color: grey;
+    height: 200px;
+    width: 200px;
+}
+#hero{
+    height: 200px;
+}
 /*.unreachable{*/
 /*    color: grey;*/
 /*}*/
@@ -53,3 +69,10 @@ body{
 /*    transition: all 0.2s ease-in;*/
 /*}*/
 
+/*Part 1*/
+.next{
+    height: 30px;
+    width: 50px;
+    background-color: dodgerblue;
+    color: white;
+}
