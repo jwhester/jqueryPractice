@@ -12,7 +12,7 @@ body{
 #start{
     color: white;
     text-align: center;
-    font-size: 50px;
+    font-size: 30px;
     cursor: pointer;
     -moz-transition: all 0.3s ease-in;
     -o-transition: all 0.3s ease-in;
@@ -31,6 +31,7 @@ body{
 
 
 #nav{
+    color: white;
     text-align: center;
     background-image: url("stars.gif");
     background-color: black;
