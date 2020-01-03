@@ -10,7 +10,6 @@ body{
 
 }
 #start{
-    color: white;
     text-align: center;
     font-size: 30px;
     cursor: pointer;
@@ -21,8 +20,8 @@ body{
 }
 
 #start:hover{
-    color: deepskyblue;
-    text-shadow:0px 0px 30px #fdec6e;
+    color: #373;
+    text-shadow:0px 0px 30px #1AFF80;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
     -webkit-transition: all 0.2s ease-in;
@@ -31,18 +30,18 @@ body{
 
 
 #nav{
-    color: white;
+    color: #1AFF80;
     text-align: center;
-    background-image: url("stars.gif");
-    background-color: black;
+    background-color: #121;
     background-repeat: no-repeat;
     background-size: cover;
-    border-color: black;
-    box-shadow: white 1px 1px 1px 1px;
+    border: 5px solid grey;
+    border-radius: 7px;
     height: 500px;
     width: 30%;
 }
 #content{
+    background-image: url("stars.gif");
     color: white;
     height: 500px;
     width: 50%;
@@ -72,8 +71,86 @@ body{
 
 /*Part 1*/
 .next{
-    height: 30px;
-    width: 50px;
+    margin: 20px;
+    height: 50px;
+    width: 100px;
     background-color: dodgerblue;
     color: white;
+}
+
+.pic{
+    height: 200px;
+    margin-left: 20px;
+}
+
+
+/*---------SHOP---------------*/
+#shopspace{
+    display: flex;
+}
+#weapons{
+    background-color: orange;
+    color: white;
+    height: 200px;
+    width: 200px;
+}
+#woodSword{
+    height: 200px;
+    width: 200px;
+    background-image: url("assets/woodSword.png");
+    background-size: contain;
+    border: black solid 2px;
+    background-repeat: no-repeat;
+
+}
+#powerSword{
+    height: 200px;
+    width: 200px;
+    background-image: url("assets/powerSword.png");
+    background-size: contain;
+    border: black solid 2px;
+    background-repeat: no-repeat;
+
+}
+#galaxySword{
+    height: 200px;
+    width: 200px;
+    background-image: url("assets/galaxySword.png");
+    background-size: contain;
+    border: black solid 2px;
+    background-repeat: no-repeat;
+
+}
+
+#armor{
+    background-color: green;
+    color: white;
+    height: 200px;
+    width: 200px;
+}
+#trenchCoat{
+    height: 200px;
+    width: 200px;
+    background-image: url("assets/trenchCoat.png");
+    background-size: contain;
+    border: black solid 2px;
+    background-repeat: no-repeat;
+
+}
+#knightArmor{
+    height: 200px;
+    width: 200px;
+    background-image: url("assets/knightArmor.png");
+    background-size: contain;
+    border: black solid 2px;
+    background-repeat: no-repeat;
+
+}
+#galaxyArmor{
+    height: 200px;
+    width: 200px;
+    background-image: url("assets/galaxyArmor.png");
+    background-size: contain;
+    border: black solid 2px;
+    background-repeat: no-repeat;
 }
