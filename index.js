@@ -4,34 +4,38 @@ let hp = 100;
 let atk = 5;
 let def = 2;
 let weapon = 0;
+let weaponName = "(none)";
 let armor = 0;
+let armorName = "(none)";
 let exp = 0;
 let expMax = 100;
 let lvl = 1;
-let money = 0;
+let money = 50000;
+let trenchCoat = false;
+let knightArmor = false;
+let galaxyArmor = false;
+let woodSword = false;
+let powerSword = false;
+let galaxySword = false;
+let job1 = false;
+let job2 = false;
+let job3 = false;
+let job4 = false;
+let introMusic = document.getElementById("music");
 
-function choice() {
-    $("#content").html(
-        "<p>What do you want to do?</p>" +
-        "<button id='shop' class='next'>Online Shop</button>" +
-        "<button id='job' class='next'>Job Board</button>" +
-        "<button id='practice' class='next'>Practice</button>"
-    );
-    $('#shop').click(function () {
-        shop();
-    });
-    $('#job').click(function () {
-        job();
-    });
-    $('#practice').click(function () {
-        practice();
-    });
-}
+$("#intro").click(function () {
+    introMusic.play();
+    $("#main").addClass("show");
+    $("#intro").addClass("hide");
+
+    console.log("clicked")
+});
 
 
 $("#start").click(function () {
     const hero = $('#input').val();
     if (hero.length >= 3) {
+        introMusic.pause();
         $("#nav").html(
             "<div id='heroBackground' style='margin: 10px'>" +
             "<img id='hero' src='assets/hero.png' alt=''>" +
@@ -42,11 +46,10 @@ $("#start").click(function () {
             "<p id='exp'>EXP:" + exp + "/" + expMax + "</p>" +
             "<p id='money'>Money: $" + money + "</p>" +
             "<p id='health'>Health: " + hp + "/" + maxHp + "</p>" +
-            "<p id='attack'>Attack: " + atk + "+" + weapon + "</p>" +
-            "<p id='defense'>Defense: " + def + "+" + armor + "</p>"
+            "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName + "</p>" +
+            "<p id='defense'>Defense: " + def + "+" + armor + armorName + "</p>"
         );
         $("#content").html(
-            "<img class='pic' src='assets/king.png' alt=''>" +
             "<h1>Chapter 1</h1>" +
             "<p class='text' style='display: none'>We find ourselves deep in the outer reaches of space looking for new work.</p>" +
             "<p>You are the great Space Bounty Hunter, </p>" +
@@ -66,6 +69,31 @@ $("#start").click(function () {
 
 });
 
+function choice() {
+    $("#content").html(
+        "<p>What do you want to do?</p>" +
+        "<button id='shop' class='next'>Online Shop</button>" +
+        "<button id='job' class='next'>Job Board</button>" +
+        "<button id='practice' class='next'>Practice</button>" +
+        "<button id='heal' class='next'>Rest</button>"
+    );
+    $('#shop').click(function () {
+        shop();
+    });
+    $('#job').click(function () {
+        job();
+    });
+    $('#practice').click(function () {
+        practice();
+    });
+    $('#heal').click(function () {
+        hp = maxHp;
+        $("#health").html(
+            "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+        );
+    });
+}
+
 // function attack(monster, monsterMax, monsterDef, atk, weapon) {
 //
 //     let attack = Math.round(Math.random() * (atk - (atk / 2)) + (atk / 2));
@@ -77,9 +105,6 @@ $("#start").click(function () {
 //
 // }
 
-function defend(hp, maxHp, def, armor, monAtk) {
-
-}
 
 function levelUp(expGain) {
     exp += expGain;
@@ -103,18 +128,13 @@ function levelUp(expGain) {
         "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
     );
     $("#attack").html(
-        "<p id='attack'>Attack: " + atk + "+" + weapon + "</p>"
+        "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName + "</p>"
     );
-    $("#defence").html(
-        "<p id='defence'>Defence: " + def + "+" + armor + "</p>"
+    $("#defense").html(
+        "<p id='defence'>Defense: " + def + "+" + armor + armorName + "</p>"
     );
 }
-let trenchCoat = false;
-let knightArmor = false;
-let galaxyArmor = false;
-let woodSword = false;
-let powerSword = false;
-let galaxySword = false;
+
 
 function shop() {
 
@@ -135,17 +155,17 @@ function shop() {
         );
         if (woodSword === false) {
             $('#shopspace').append(
-                "<div id='woodSword'>$500</div>"
+                "<div id='woodSword'>Wood Sword: $500</div>"
             )
         }
         if (powerSword === false) {
             $('#shopspace').append(
-                "<div id='powerSword'>$1500</div>"
+                "<div id='powerSword'>Power Sword: $1500</div>"
             )
         }
         if (galaxySword === false) {
             $('#shopspace').append(
-                "<div id='galaxySword'>$5000</div>"
+                "<div id='galaxySword'>Galaxy Sword: $5000</div>"
             )
         }
         if (woodSword && powerSword && galaxySword === true) {
@@ -160,16 +180,12 @@ function shop() {
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 weapon = 2;
+                weaponName = "(Wood Sword)";
                 $('#attack').html(
-                    "<p id='attack'>Attack: " + atk + "+" + weapon + "(wood sword)</p>"
+                    "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName + "</p>"
                 );
                 woodSword = true;
-                $('#woodSword').html(
-                    "<div id='woodSword' style='color: darkgray'>SOLD OUT</p>"
-                );
-                $('#woodSword').click(function () {
-                    alert('SOLD OUT');
-                })
+                shop();
             } else {
                 alert("You don't have enough money!")
             }
@@ -181,16 +197,12 @@ function shop() {
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 weapon = 6;
+                weaponName = "(Power Sword)";
                 $('#attack').html(
-                    "<p id='attack'>Attack: " + atk + "+" + weapon + "(power sword)</p>"
+                    "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName +"</p>"
                 );
                 powerSword = true;
-                $('#powerSword').html(
-                    "<div id='powerSword' style='color: darkgray'>SOLD OUT</div>"
-                );
-                $('#powerSword').click(function () {
-                    alert('SOLD OUT');
-                })
+                shop();
             } else {
                 alert("You don't have enough money!")
             }
@@ -202,17 +214,13 @@ function shop() {
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 weapon = 10;
+                weaponName = "(Galaxy Sword)";
                 $('#attack').html(
-                    "<p id='attack'>Attack: " + atk + "+" + weapon + "(galaxy sword)</p>"
+                    "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName +"</p>"
                 );
 
                 galaxySword = true;
-                $('#galaxySword').html(
-                    "<div id='galaxySword' style='color: darkgray'>SOLD OUT</div>"
-                );
-                $('#galaxySword').click(function () {
-                    alert('SOLD OUT');
-                })
+                shop();
             } else {
                 alert("You don't have enough money!")
             }
@@ -230,17 +238,17 @@ function shop() {
         );
         if (trenchCoat === false) {
             $('#shopspace').append(
-                "<div id='trenchCoat'>$500</div>"
+                "<div id='trenchCoat'>Trench Coat: $500</div>"
             )
         }
         if (knightArmor === false) {
             $('#shopspace').append(
-                "<div id='knightArmor'>$1500</div>"
+                "<div id='knightArmor'>Knight Armor: $1500</div>"
             )
         }
         if (galaxyArmor === false) {
             $('#shopspace').append(
-                "<div id='galaxyArmor'>$5000</div>"
+                "<div id='galaxyArmor'>Galaxy Armor: $5000</div>"
             )
         }
         if (trenchCoat && knightArmor && galaxyArmor === true) {
@@ -257,19 +265,16 @@ function shop() {
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 armor = 2;
+                armorName = "(Trench Coat)";
                 $('#defense').html(
-                    "<p id='defense'>Defense: " + def + "+" + armor + "(trench coat)</p>"
+                    "<p id='defense'>Defense: " + def + "+" + armor + armorName + "</p>"
                 );
                 $('#heroBackground').html(
                 "<img id='hero' src='assets/trenchCoat.png' alt=''>"
                 );
                 trenchCoat = true;
-                $('#trenchCoat').html(
-                    "<div id='trenchCoat' style='color: darkgray'>SOLD OUT</div>"
-                );
-                $('#trenchCoat').click(function () {
-                    alert('SOLD OUT');
-                })
+                shop();
+
             } else {
                 alert("You don't have enough money!")
             }
@@ -281,19 +286,15 @@ function shop() {
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 armor = 6;
-                $('#defence').html(
-                    "<p id='defense'>Defense: " + def + "+" + armor + "(knight armor)</p>"
+                armorName = "(Knight Armor)";
+                $('#defense').html(
+                    "<p id='defense'>Defense: " + def + "+" + armor + armorName + "</p>"
                 );
                 $('#heroBackground').html(
                     "<img id='hero' src='assets/knightArmor.png' alt=''>"
                 );
                 knightArmor = true;
-                $('#knightArmor').html(
-                    "<div id='knightArmor' style='color: darkgray'>SOLD OUT</div>"
-                );
-                $('#knightArmor').click(function () {
-                    alert('SOLD OUT');
-                })
+                shop();
             } else {
                 alert("You don't have enough money!")
             }
@@ -305,19 +306,15 @@ function shop() {
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 armor = 10;
+                armorName = "(Galaxy Armor)";
                 $('#defense').html(
-                    "<p id='defense'>Defense: " + def + "+" + armor + "(galaxy armor)</p>"
+                    "<p id='defense'>Defense: " + def + "+" + armor + armorName + "</p>"
                 );
                 $('#heroBackground').html(
                     "<img id='hero' src='assets/galaxyArmor.png' alt=''>"
                 );
                 galaxyArmor = true;
-                $('#galaxyArmor').html(
-                    "<div id='galaxyArmor' style='color: darkgray'>SOLD OUT</div>"
-                );
-                $('#galaxyArmor').click(function () {
-                    alert('SOLD OUT');
-                })
+                shop();
             } else {
                 alert("You don't have enough money!")
             }
@@ -330,10 +327,7 @@ function shop() {
         choice();
     });
 }
-let job1 = false;
-let job2 = false;
-let job3 = false;
-let job4 = false;
+
     function job() {
 
         $("#content").html(
@@ -385,6 +379,8 @@ let job4 = false;
         );
         $("#damage").click(function () {
             let monsterDef = 2;
+            let monsterAtk = 5;
+            let hit = Math.round(Math.random() * (monsterAtk - (monsterAtk/ 2)) + (monsterAtk / 2));
             let attack = Math.round(Math.random() * (atk - (atk / 2)) + (atk / 2));
             let monDef = Math.round(Math.random() * (monsterDef - (monsterDef / 2)) + (monsterDef / 2));
             monster = Math.round(monster - ((attack + weapon) - monDef));
@@ -398,12 +394,15 @@ let job4 = false;
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 choice();
+            } else {
+                hp = Math.round(hp - (hit - (def + armor)));
+                $("#health").html(
+                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                );
             }
         })
     }
-    function addMoney(moneyAmount) {
-        money += moneyAmount;
-    }
+
 
 
 

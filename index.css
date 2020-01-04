@@ -9,6 +9,16 @@ body{
     height: 100vh;
 
 }
+
+.hide{
+    display: none;
+}
+.show{
+    display: flex;
+}
+#title{
+    width: 100%;
+}
 #start{
     text-align: center;
     font-size: 30px;
@@ -38,7 +48,8 @@ body{
     border: 5px solid grey;
     border-radius: 7px;
     height: 500px;
-    width: 30%;
+    width: 300px;
+    margin-right: 20px;
 }
 #content{
     background-image: url("stars.gif");
