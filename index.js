@@ -18,6 +18,7 @@ let woodSword = false;
 let powerSword = false;
 let galaxySword = false;
 let job1 = false;
+let job1Part2 = false;
 let job2 = false;
 let job3 = false;
 let job4 = false;
@@ -115,7 +116,7 @@ function levelUp(expGain) {
         exp = leftOverExp;
         atk += 2;
         def += 2;
-        maxHp += 10;
+        maxHp += 20;
         hp = maxHp;
     }
     $("#level").html(
@@ -329,16 +330,51 @@ function shop() {
 }
 
     function job() {
-
         $("#content").html(
             "<h3>Job Board:</h3>" +
             "<div id='jobs'></div>" +
-            "<button id='return'>Return</button>"
+            "<button id='return' class='next'>Return</button>"
         );
         if (job1 === false) {
             $("#jobs").append(
                 "<p id='job1'>1. Kill the wolves</p>"
-            )
+            );
+            $("#job1").click(function () {
+                $("#content").html(
+                    "<img src='assets/horseMayor.png' alt='' class='pic'>" +
+                    "<h3>Kill the wolves:</h3>" +
+                    "<p><span style='color: lawngreen'>Horse Mayor:</span> Thank you for replying to our call!  I hear that you're the greatest bounty hunter ever.</p>" +
+                    "<p>We have a problem with a vicious pack of wolves that continue to attack our town.  Please defeat these monsters!</p>" +
+                    "<button id='fight' class='next'>Fight</button>" +
+                    "<button id='return' class='next'>Return</button>"
+                );
+                $('#fight').click(function () {
+                    wolf();
+                });
+                $('#return').click(function () {
+                    choice();
+                });
+            });
+
+        } else if (job1Part2 === false){
+            $("#jobs").append(
+                "<p id='job1'>1. Kill the king wolf</p>"
+            );
+            $("#job1").click(function () {
+                $("#content").html(
+                    "<img src='assets/wolfKing.png' alt='' class='pic'>" +
+                    "<h3>Kill the wolf king:</h3>" +
+                    "<p><span style='color: red'>Wolf King:</span> Snarl. Growl.</p>" +
+                    "<button id='fight' class='next'>Fight</button>" +
+                    "<button id='return' class='next'>Return</button>"
+                );
+                $('#fight').click(function () {
+                    wolfKing();
+                });
+                $('#return').click(function () {
+                    choice();
+                });
+            });
         }
         if (job2 === false) {
             $("#jobs").append(
@@ -375,30 +411,66 @@ function shop() {
             "<p>Wolf</p>" +
             "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>" +
             "<br>" +
-            "<button id='damage'>Attack</button>"
+            "<button id='damage' class='next'>Attack</button>"
         );
         $("#damage").click(function () {
-            let monsterDef = 2;
-            let monsterAtk = 5;
+            let monsterDef = 3;
+            let monsterAtk = 6;
             let hit = Math.round(Math.random() * (monsterAtk - (monsterAtk/ 2)) + (monsterAtk / 2));
-            let attack = Math.round(Math.random() * (atk - (atk / 2)) + (atk / 2));
             let monDef = Math.round(Math.random() * (monsterDef - (monsterDef / 2)) + (monsterDef / 2));
-            monster = Math.round(monster - ((attack + weapon) - monDef));
-            $("#monsterHealth").html(
-                "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>"
-            );
+            let attack = (weapon + Math.round(Math.random() * (atk - (atk / 2)) + (atk / 2))) - monDef;
+            if (attack >0) {
+                monster = Math.round(monster - attack);
+                $("#monsterHealth").html(
+                    "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>"
+                );
+            }
             if (monster <= 0) {
-                levelUp(20);
+                levelUp(25);
                 money += 100;
                 $('#money').html(
                     "<p id='money'>Money: $" + money + "</p>"
                 );
                 choice();
             } else {
-                hp = Math.round(hp - (hit - (def + armor)));
-                $("#health").html(
-                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
-                );
+                if (Math.round(hit - (def + armor)) > 0) {
+                    hp = Math.round(hp - (hit - (def + armor)));
+                    $("#health").html(
+                        "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                    );
+                }
+                if (hp <= 0){
+                    alert("You died. GAME OVER!!!");
+                    money = money/2;
+                    hp = 1;
+                    exp = 0;
+                    if (lvl > 1) {
+                        lvl -= 1;
+                        expMax -= 50;
+                        atk -= 2;
+                        def -= 2;
+                        maxHp -= 20;
+                    }
+                    $("#level").html(
+                        "<p id='level'>Level:" + lvl + "</p>"
+                    );
+                    $("#money").html(
+                    "<p id='money'>Money: $" + money + "</p>"
+                    );
+                    $("#exp").html(
+                        "<p id='exp'>EXP:" + exp + "/" + expMax + "</p>"
+                    );
+                    $("#health").html(
+                        "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                    );
+                    $("#attack").html(
+                        "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName + "</p>"
+                    );
+                    $("#defense").html(
+                        "<p id='defence'>Defense: " + def + "+" + armor + armorName + "</p>"
+                    );
+                    choice();
+                }
             }
         })
     }
@@ -406,4 +478,235 @@ function shop() {
 
 
 
-
+function wolf() {
+    let monsterMax = 50;
+    let monster = monsterMax;
+    $("#content").html(
+        "<img src='assets/wolf.png' alt='' class='pic'>" +
+        "<p>Wolves</p>" +
+        "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>" +
+        "<br>" +
+        "<button id='damage' class='next'>Attack</button>"
+    );
+    $("#damage").click(function () {
+        let monsterDef = 5;
+        let monsterAtk = 8;
+        let hit = Math.round(Math.random() * (monsterAtk - (monsterAtk/ 2)) + (monsterAtk / 2));
+        let monDef = Math.round(Math.random() * (monsterDef - (monsterDef / 2)) + (monsterDef / 2));
+        let attack = (weapon + Math.round(Math.random() * (atk - (atk / 2)) + (atk / 2))) - monDef;
+        if (attack >0) {
+            monster = Math.round(monster - attack);
+            $("#monsterHealth").html(
+                "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>"
+            );
+        }
+        if (monster <= 0) {
+            levelUp(30);
+            money += 100;
+            $('#money').html(
+                "<p id='money'>Money: $" + money + "</p>"
+            );
+            wolf2()
+        } else {
+            if (Math.round(hit - (def + armor)) > 0) {
+                hp = Math.round(hp - (hit - (def + armor)));
+                $("#health").html(
+                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                );
+            }
+            if (hp <= 0){
+                alert("You died. GAME OVER!!!");
+                money = money/2;
+                hp = 1;
+                exp = 0;
+                if (lvl > 1) {
+                    lvl -= 1;
+                    expMax -= 50;
+                    atk -= 2;
+                    def -= 2;
+                    maxHp -= 20;
+                }
+                $("#level").html(
+                    "<p id='level'>Level:" + lvl + "</p>"
+                );
+                $("#money").html(
+                    "<p id='money'>Money: $" + money + "</p>"
+                );
+                $("#exp").html(
+                    "<p id='exp'>EXP:" + exp + "/" + expMax + "</p>"
+                );
+                $("#health").html(
+                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                );
+                $("#attack").html(
+                    "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName + "</p>"
+                );
+                $("#defense").html(
+                    "<p id='defence'>Defense: " + def + "+" + armor + armorName + "</p>"
+                );
+                choice();
+            }
+        }
+    })
+}
+function wolf2() {
+    let monsterMax = 100;
+    let monster = monsterMax;
+    $("#content").html(
+        "<div style='display: flex'>" +
+        "<img src='assets/wolf.png' alt='' class='pic'>" +
+        "<img src='assets/wolf.png' alt='' class='pic'>" +
+        "</div>" +
+        "<p>Wolves</p>" +
+        "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>" +
+        "<br>" +
+        "<button id='damage' class='next'>Attack</button>"
+    );
+    $("#damage").click(function () {
+        let monsterDef = 7;
+        let monsterAtk = 13;
+        let hit = Math.round(Math.random() * (monsterAtk - (monsterAtk/ 2)) + (monsterAtk / 2));
+        let monDef = Math.round(Math.random() * (monsterDef - (monsterDef / 2)) + (monsterDef / 2));
+        let attack = (weapon + Math.round(Math.random() * (atk - (atk / 2)) + (atk / 2))) - monDef;
+        if (attack >0) {
+            monster = Math.round(monster - attack);
+            $("#monsterHealth").html(
+                "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>"
+            );
+        }
+        if (monster <= 0) {
+            levelUp(80);
+            money += 500;
+            $('#money').html(
+                "<p id='money'>Money: $" + money + "</p>"
+            );
+            job1 = true;
+            choice();
+        } else {
+            if (Math.round(hit - (def + armor)) > 0) {
+                hp = Math.round(hp - (hit - (def + armor)));
+                $("#health").html(
+                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                );
+            }
+            if (hp <= 0){
+                alert("You died. GAME OVER!!!");
+                money = money/2;
+                hp = 1;
+                exp = 0;
+                if (lvl > 1) {
+                    lvl -= 1;
+                    expMax -= 50;
+                    atk -= 2;
+                    def -= 2;
+                    maxHp -= 20;
+                }
+                $("#level").html(
+                    "<p id='level'>Level:" + lvl + "</p>"
+                );
+                $("#money").html(
+                    "<p id='money'>Money: $" + money + "</p>"
+                );
+                $("#exp").html(
+                    "<p id='exp'>EXP:" + exp + "/" + expMax + "</p>"
+                );
+                $("#health").html(
+                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                );
+                $("#attack").html(
+                    "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName + "</p>"
+                );
+                $("#defense").html(
+                    "<p id='defence'>Defense: " + def + "+" + armor + armorName + "</p>"
+                );
+                choice();
+            }
+        }
+    })
+}
+function wolfKing() {
+    let monsterMax = 150;
+    let monster = monsterMax;
+    $("#content").html(
+        "<div style='display: flex'>" +
+        "<img src='assets/wolfKing.png' alt='' class='pic'>" +
+        "</div>" +
+        "<p>Wolf King</p>" +
+        "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>" +
+        "<br>" +
+        "<button id='damage' class='next'>Attack</button>"
+    );
+    $("#damage").click(function () {
+        let monsterDef = 10;
+        let monsterAtk = 18;
+        let hit = Math.round(Math.random() * (monsterAtk - (monsterAtk/ 2)) + (monsterAtk / 2));
+        let monDef = Math.round(Math.random() * (monsterDef - (monsterDef / 2)) + (monsterDef / 2));
+        let attack = (weapon + Math.round(Math.random() * (atk - (atk / 2)) + (atk / 2))) - monDef;
+        if (attack >0) {
+            monster = Math.round(monster - attack);
+            $("#monsterHealth").html(
+                "<p id='monsterHealth'>Health: " + monster + "/" + monsterMax + "</p>"
+            );
+        }
+        if (monster <= 0) {
+            levelUp(200);
+            money += 1500;
+            $('#money').html(
+                "<p id='money'>Money: $" + money + "</p>"
+            );
+            job1Part2 = true;
+            $("#content").html(
+                "<img src='assets/horseMayor.png' alt='' class='pic'>" +
+                "<h3>Victory:</h3>" +
+                "<p><span style='color: lawngreen'>Horse Mayor:</span> Thank you for saving us brave hero!  Please take this money as thanks for a job well done.</p>" +
+                "<button id='return' class='next'>Return</button>"
+            );
+            money += 1500;
+            $("#money").html(
+                "<p id='money'>Money: $" + money + "</p>"
+            );
+            $('#return').click(function () {
+                choice();
+            });
+        } else {
+            if (Math.round(hit - (def + armor)) > 0) {
+                hp = Math.round(hp - (hit - (def + armor)));
+                $("#health").html(
+                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                );
+            }
+            if (hp <= 0){
+                alert("You died. GAME OVER!!!");
+                money = money/2;
+                hp = 1;
+                exp = 0;
+                if (lvl > 1) {
+                    lvl -= 1;
+                    expMax -= 50;
+                    atk -= 2;
+                    def -= 2;
+                    maxHp -= 20;
+                }
+                $("#level").html(
+                    "<p id='level'>Level:" + lvl + "</p>"
+                );
+                $("#money").html(
+                    "<p id='money'>Money: $" + money + "</p>"
+                );
+                $("#exp").html(
+                    "<p id='exp'>EXP:" + exp + "/" + expMax + "</p>"
+                );
+                $("#health").html(
+                    "<p id='health'>Health: " + hp + "/" + maxHp + "</p>"
+                );
+                $("#attack").html(
+                    "<p id='attack'>Attack: " + atk + "+" + weapon + weaponName + "</p>"
+                );
+                $("#defense").html(
+                    "<p id='defence'>Defense: " + def + "+" + armor + armorName + "</p>"
+                );
+                choice();
+            }
+        }
+    })
+}
