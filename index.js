@@ -109,15 +109,15 @@ function levelUp(expGain) {
         "<p id='defence'>Defence: " + def + "+" + armor + "</p>"
     );
 }
-
+let trenchCoat = false;
+let knightArmor = false;
+let galaxyArmor = false;
+let woodSword = false;
+let powerSword = false;
+let galaxySword = false;
 
 function shop() {
-    let trenchCoat = false;
-    let knightArmor = false;
-    let galaxyArmor = false;
-    let woodSword = false;
-    let powerSword = false;
-    let galaxySword = false;
+
     $('#content').html(
         "<div id='shop'>" +
         "<div id='shopspace'>" +
@@ -165,8 +165,11 @@ function shop() {
                 );
                 woodSword = true;
                 $('#woodSword').html(
-                    "<div id='woodSwordsold' style='color: darkgray'>SOLD OUT</p>"
+                    "<div id='woodSword' style='color: darkgray'>SOLD OUT</p>"
                 );
+                $('#woodSword').click(function () {
+                    alert('SOLD OUT');
+                })
             } else {
                 alert("You don't have enough money!")
             }
@@ -183,8 +186,11 @@ function shop() {
                 );
                 powerSword = true;
                 $('#powerSword').html(
-                    "<div id='powerSwordsold' style='color: darkgray'>SOLD OUT</div>"
+                    "<div id='powerSword' style='color: darkgray'>SOLD OUT</div>"
                 );
+                $('#powerSword').click(function () {
+                    alert('SOLD OUT');
+                })
             } else {
                 alert("You don't have enough money!")
             }
@@ -202,8 +208,11 @@ function shop() {
 
                 galaxySword = true;
                 $('#galaxySword').html(
-                    "<div id='galaxySwordsold' style='color: darkgray'>SOLD OUT</div>"
+                    "<div id='galaxySword' style='color: darkgray'>SOLD OUT</div>"
                 );
+                $('#galaxySword').click(function () {
+                    alert('SOLD OUT');
+                })
             } else {
                 alert("You don't have enough money!")
             }
@@ -256,8 +265,11 @@ function shop() {
                 );
                 trenchCoat = true;
                 $('#trenchCoat').html(
-                    "<div id='trenchCoatsold' style='color: darkgray'>SOLD OUT</div>"
-                )
+                    "<div id='trenchCoat' style='color: darkgray'>SOLD OUT</div>"
+                );
+                $('#trenchCoat').click(function () {
+                    alert('SOLD OUT');
+                })
             } else {
                 alert("You don't have enough money!")
             }
@@ -277,8 +289,11 @@ function shop() {
                 );
                 knightArmor = true;
                 $('#knightArmor').html(
-                    "<div id='knightArmorsold' style='color: darkgray'>SOLD OUT</div>"
-                )
+                    "<div id='knightArmor' style='color: darkgray'>SOLD OUT</div>"
+                );
+                $('#knightArmor').click(function () {
+                    alert('SOLD OUT');
+                })
             } else {
                 alert("You don't have enough money!")
             }
@@ -298,8 +313,11 @@ function shop() {
                 );
                 galaxyArmor = true;
                 $('#galaxyArmor').html(
-                    "<div id='galaxyArmorsold' style='color: darkgray'>SOLD OUT</div>"
-                )
+                    "<div id='galaxyArmor' style='color: darkgray'>SOLD OUT</div>"
+                );
+                $('#galaxyArmor').click(function () {
+                    alert('SOLD OUT');
+                })
             } else {
                 alert("You don't have enough money!")
             }
@@ -312,12 +330,12 @@ function shop() {
         choice();
     });
 }
-
+let job1 = false;
+let job2 = false;
+let job3 = false;
+let job4 = false;
     function job() {
-        let job1 = false;
-        let job2 = false;
-        let job3 = false;
-        let job4 = false;
+
         $("#content").html(
             "<h3>Job Board:</h3>" +
             "<div id='jobs'></div>" +
